@@ -94,20 +94,81 @@ struct listNode* insertAtGivenPosition(struct listNode* head, int data, int pos)
 	}
 }
 
+void* deleteFirst(struct listNode** head){ // double asterisk = pointer to the pointer of the structure
+    struct listNode* tmp;
+    if (*head == NULL){
+        return NULL;
+    }
+    else {
+        tmp = *head;
+        *head = (*head)->next;
+        free(tmp);
+        return NULL;
+    }
+}
+
+void* deleteLast(struct listNode** head){ // double asterisk = pointer to the pointer of the structure
+    struct listNode* tmp;
+    if (*head == NULL){
+        return NULL;
+    }
+    else {
+        struct listNode* cur = *head;
+        struct listNode* tmp;
+        while (cur->next != NULL) {
+            tmp = cur;
+            cur = cur->next;
+        }
+        tmp->next = NULL;
+        free(cur);
+        return NULL;
+    }
+}
+
+void* delete(struct listNode** head, int idx){
+    struct listNode* tmp;
+    struct listNode* cur = *head;
+    for (int i = 2; i < idx; i++){
+        cur = cur->next;
+    }
+    tmp = cur->next;
+    cur->next = tmp->next;
+    // tmp->next = NULL;
+    return NULL;
+}
+
+void* deleteLinkedList(struct listNode** head){
+    while (*head != NULL) {
+        deleteFirst(head);
+    }
+    return NULL;
+}
+
 int main(){
 	struct listNode *head=NULL;
+
 	head = insertAtBeginning(head, 5);
-	printSLList(head);
 	head = insertAtBeginning(head, 2);
 	head = insertAtBeginning(head, 2);
-	printSLList(head);
+	printSLList(head); // [2, 2, 5]
+
     head = insertAtEnd(head, 3);
-	printSLList(head);
+	printSLList(head); // [2, 2, 5, 3]
+
     head = insertAtGivenPosition(head, 32, 1);
-	printSLList(head);
     head = insertAtGivenPosition(head, 42, 100);
-	printSLList(head);
     head = insertAtGivenPosition(head, 42, 5);
-	printSLList(head);
+	printSLList(head); // [32, 2, 2, 5, 42, 3, 42]
+
+    deleteFirst(&head);
+    deleteLast(&head);
+	printSLList(head); // [2, 2, 5, 42, 3]
+
+    delete(&head, 3);
+    delete(&head, 3);
+	printSLList(head); // [2, 2, 3]
+
+    deleteLinkedList(&head);
+	printSLList(head); // []
 	return 0;
 }
