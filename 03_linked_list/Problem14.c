@@ -18,9 +18,9 @@ void* deleteLast(struct listNode** head);
 void* delete(struct listNode** head, int idx);
 void* deleteLinkedList(struct listNode** head);
 
-struct listNode* findStartLoopFloyd(struct listNode* head) {
+int findLengthLoopFloyd(struct listNode* head) {
     if (head == NULL){
-        return NULL;
+        return 0;
     }
 
     struct listNode* slow = head;
@@ -29,7 +29,7 @@ struct listNode* findStartLoopFloyd(struct listNode* head) {
     bool flag = false;
     while (fast->next != NULL) {
         if (fast == NULL) {
-            return NULL;
+            return 0;
         }
         fast = (fast->next)->next;
         slow = slow->next;
@@ -40,15 +40,16 @@ struct listNode* findStartLoopFloyd(struct listNode* head) {
     }
 
     if (flag) {
-        slow = head;
-        while (slow != fast) {
-            slow = slow->next;
+        int count = 1;
+        fast = fast->next;
+        while (fast != slow) {
+            count++;
             fast = fast->next;
         }
-        return slow;
+        return count;
     }
     else {
-        return NULL;
+        return 0;
     }
 }
 
@@ -64,7 +65,7 @@ int main(){
     head = insertAtGivenPosition(head, 42, 5);
 	printSLList(head); // [32, 2, 2, 5, 42, 3, 42]
 
-    printf("%d\n", findStartLoopFloyd(head)); // NULL
+    printf("%d\n", findLengthLoopFloyd(head)); // 0
 
     // modify the list to create a loop
     struct listNode* cur = head;
@@ -72,8 +73,7 @@ int main(){
         cur = cur->next;
     }
     cur->next = head->next; // skip the first node and then connect the loop
-    struct listNode* val = findStartLoopFloyd(head);
-    printf("%d\n", val->data); // 2
+    printf("%d\n", findLengthLoopFloyd(head)); // 6
 
 
     deleteLinkedList(&head);
