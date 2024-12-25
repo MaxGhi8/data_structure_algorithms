@@ -162,7 +162,7 @@ void deleteDLL(struct DLLNode** head){
     return;
 }
 
-int main(){
+static int main(){
     struct DLLNode *head = NULL;
     printDLList(head); // []
 

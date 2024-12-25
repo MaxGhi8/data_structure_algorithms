@@ -151,7 +151,7 @@ void* deleteLinkedList(struct listNode** head){
     return NULL;
 }
 
-int main(){
+static int main(){
 	struct listNode *head=NULL;
 
 	head = insertAtBeginning(head, 5);

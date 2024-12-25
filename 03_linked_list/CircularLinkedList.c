@@ -133,7 +133,7 @@ void deleteCLL(struct CircularLL** head){
     return;
 }
 
-int main(){
+static int main(){
     struct CircularLL* head = NULL;
     printCLL(head); // []
 
