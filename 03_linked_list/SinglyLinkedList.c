@@ -52,6 +52,9 @@ struct listNode* insertAtEnd(struct listNode* head, int data){
     tmp->next = NULL;
 
     // traverse the list
+    if (head == NULL) {
+        return tmp;
+    }
     struct listNode* cur = head;
     while (cur->next != NULL) {
         cur = cur->next;
@@ -94,6 +97,7 @@ struct listNode* insertAtGivenPosition(struct listNode* head, int data, int pos)
 	}
 }
 
+// Function to delete the first element
 void* deleteFirst(struct listNode** head){ // double asterisk = pointer to the pointer of the structure
     struct listNode* tmp;
     if (*head == NULL){
@@ -107,6 +111,7 @@ void* deleteFirst(struct listNode** head){ // double asterisk = pointer to the p
     }
 }
 
+// Function to delete the last element
 void* deleteLast(struct listNode** head){ // double asterisk = pointer to the pointer of the structure
     struct listNode* tmp;
     if (*head == NULL){
@@ -125,6 +130,7 @@ void* deleteLast(struct listNode** head){ // double asterisk = pointer to the po
     }
 }
 
+// Function to delete a specific element inside the SLL
 void* delete(struct listNode** head, int idx){
     struct listNode* tmp;
     struct listNode* cur = *head;
@@ -137,6 +143,7 @@ void* delete(struct listNode** head, int idx){
     return NULL;
 }
 
+// Delete an entire SLL
 void* deleteLinkedList(struct listNode** head){
     while (*head != NULL) {
         deleteFirst(head);
