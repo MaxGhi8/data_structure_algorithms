@@ -40,10 +40,17 @@ int isFull(struct Stack* S){
     return (size(S) == S->capacity);
 }
 
+// Function to doubling the array
+void doubleStack(struct Stack* S){
+    S->capacity *= 2;
+    S->array = (int*)realloc(S->array, (S->capacity)*sizeof(int));
+    return;
+}
+
 // Add an element to the stack (push operation)
 struct Stack* push(struct Stack* S, int data){
     if (isFull(S)){
-        printf("Stack overflow.\n");
+        doubleStack(S);
     }
     else {
         S->top++; 
@@ -86,9 +93,9 @@ void deleteStack(struct Stack* S){
 int main(){
     // Create a stack
     int capacity = 15;
+    struct Stack* S = createStack(capacity);
 
     // Add 10 elements to the stack
-    struct Stack* S = createStack(capacity);
     for(int i = 0; i < 10; i++){
         push(S, i);
     }
@@ -102,6 +109,14 @@ int main(){
     // top example
     int m = top(S);
     printf("Topped the element %d, now the top element is %d and the size is %d\n", m, S->array[S->top], size(S));
+
+
+    // add other 10 elements to the stack
+    for(int i = 0; i < 10; i++){
+        push(S, 2*i);
+    }
+    printf("Top element is %d\n", S->array[S->top]);
+    printf("Stack size is %d, stack capacity is %d\n", size(S), S->capacity);
 
     deleteStack(S);
 
